@@ -1,25 +1,27 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController; // Import the DashboardController
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Home Route
+// Dashboard Route (accessible without login)
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+// Welcome Route (New welcome page without login and register)
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
 
-// Dashboard Route
-Route::get('/dashboard', [DashboardController::class, 'index']) // Use the DashboardController
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/simulation', function () {
+    return Inertia::render('Simulation');
+})->name('simulation');
+
 
 // Profile Management Routes
 Route::middleware('auth')->group(function () {

@@ -22,14 +22,12 @@
                         </span>
                     </p>
 
-                
-
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-500/10">
                             <div class="space-y-5 py-9">
-                                <a href="#" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">Simulation</a>
-                                <a href="#" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">Settings</a>
-                                <a href="#" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">History</a>
+                                <a href="/simulation" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">Simulation</a>
+                                <a href="/settings" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">Settings</a>
+                                <a href="/history" class="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 bg-blue-300 hover:bg-blue-400 transition duration-200">History</a>
                             </div>
                         </div>
                     </div>
