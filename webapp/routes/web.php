@@ -22,6 +22,9 @@ Route::get('/simulation', function () {
     return Inertia::render('Simulation');
 })->name('simulation');
 
+Route::get('/history', function () {
+    return Inertia::render('History');
+})->name('history');
 
 // Profile Management Routes
 Route::middleware('auth')->group(function () {

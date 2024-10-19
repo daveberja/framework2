@@ -10,20 +10,20 @@
             </nav>
         </header>
 
-        <div class="relative isolate px-6 pt-10 lg:px-8">
-            <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                <div class="text-left">
-                    <p class="mt-6 text-lg text-gray-800">
+        <div class="relative isolate px-6 pt-4 lg:px-8"> <!-- Reduced pt-10 to pt-4 -->
+            <div class="max-w-2xl sm:py-4 lg:py-4"> <!-- Reduced py values to py-4 -->
+                <div class="text-end">
+                    <p class="mt-2 text-lg text-gray-800"> <!-- Reduced mt-6 to mt-2 -->
                         <span class="inline-block p-4 bg-blue-500 text-white rounded-lg shadow-lg">
                             This is the simulation page where you begin testing your system.
                         </span>
                     </p>
 
                     <!-- New Heading for Sliders -->
-                    <h2 class="mt-10 text-2xl font-bold text-gray-900">Control Parameters</h2> <!-- New Heading -->
+                    <h2 class="mt-6 text-2xl font-bold text-gray-900 text-left">Control Parameters</h2> <!-- Reduced mt-10 to mt-6 -->
 
                     <!-- Outer Square -->
-                    <div class="mt-4 p-6 rounded-lg bg-white shadow-lg border border-blue-400 w-full max-w-md"> 
+                    <div class="mt-4 p-6 rounded-lg bg-white shadow-lg border border-blue-400 max-w-md"> 
                         <div class="flex flex-col items-start"> 
                             <!-- Frequency Label Square -->
                             <div class="p-4 mb-4 border border-blue-400 rounded-lg bg-gray-200 w-full"> 
@@ -74,11 +74,6 @@ body {
 /* Background color for the page */
 .bg-gray-100 {
     background-color: #f7fafc; /* Light gray color for background */
-}
-
-/* Outer square style */
-.w-full {
-    margin-left: 0; /* Align square to the left */
 }
 
 /* Slider styles */
