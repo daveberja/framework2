@@ -1,7 +1,7 @@
 <template>
     <header class="flex justify-between items-center p-6 bg-gray-800 shadow-lg text-white">
         <!-- Left Button: Back -->
-        <a href="/dashboard" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">Back</a>
+        <a href="/previous-page" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">Back</a>
 
         <!-- Title -->
         <h1 class="text-2xl font-semibold">Simulation Dashboard</h1>
@@ -10,9 +10,9 @@
         <a href="/" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">Home</a>
     </header>
 
-    <div class="flex justify-between p-6 bg-gray-900 min-h-screen text-white">
+    <div class="flex justify-between p-10 bg-gray-900 min-h-screen text-white">
         <!-- Left Side: Past Simulations -->
-        <div class="w-1/3 p-4 border-r border-gray-600">
+        <div class="w-1/9 p-4 border-r border-gray-600">
             <h2 class="text-lg font-bold text-blue-300 mb-4 text-center">Past Simulations</h2>
             <div class="bg-gray-800 shadow-lg rounded-lg p-4">
                 <h3 class="text-md font-semibold text-center mb-4">LEAD ACID BATTERY TESTING RESULT</h3>
@@ -71,34 +71,22 @@
         <!-- Right Side: Deleted Simulations -->
         <div class="w-1/3 p-4">
             <h2 class="text-lg font-bold text-blue-300 mb-4 text-center">Deleted Simulations</h2>
-            <div v-if="showDeleted" class="bg-gray-800 shadow-lg rounded-lg p-4">
-                <ul>
+            <div class="bg-gray-800 shadow-lg rounded-lg p-4">
+                <ul v-if="deletedSimulations.length > 0">
                     <li v-for="deleted in deletedSimulations" :key="deleted.id" class="flex justify-between items-center py-2 border-b border-gray-600">
                         <span>{{ deleted.batteryName }}</span>
+                        <div>
+                            <button @click="retrieveSimulation(deleted)" class="bg-green-600 text-white px-2 py-1 rounded-lg hover:bg-green-500 transition">Retrieve</button>
+                            <button @click="permanentlyDeleteSimulation(deleted)" class="bg-red-700 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition">Delete Permanently</button>
+                        </div>
                     </li>
                 </ul>
-
-                <!-- Buttons for actions -->
-                <div class="mt-4 flex justify-center space-x-4">
-                    <button 
-                        v-for="deleted in deletedSimulations" 
-                        :key="deleted.id" 
-                        @click="retrieveSimulation(deleted)" 
-                        class="bg-green-600 text-white px-2 py-1 rounded-lg hover:bg-green-500 transition"
-                    >
-                        Retrieve
-                    </button>
-                    <button 
-                        v-for="deleted in deletedSimulations" 
-                        :key="deleted.id" 
-                        @click="permanentlyDeleteSimulation(deleted)" 
-                        class="bg-red-700 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition"
-                    >
-                        Delete Permanently
-                    </button>
+                <div v-else class="text-gray-400 text-center p-2">
+                   
+                        No deleted simulations.
+                    
                 </div>
             </div>
-            <button @click="showDeletedSimulations" class="mt-6 w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition">Toggle Deleted Simulations</button>
         </div>
     </div>
 </template>
@@ -127,37 +115,43 @@ export default {
         },
         deleteSimulation() {
             if (this.selectedSimulation) {
-                this.deletedSimulations.push(this.selectedSimulation); // Store deleted simulation
-                this.pastSimulations = this.pastSimulations.filter(sim => sim.id !== this.selectedSimulation.id); // Remove from past simulations
-                this.selectedSimulation = null; // Reset selected simulation
+                this.deletedSimulations.push(this.selectedSimulation); // Move to deleted simulations
+                this.pastSimulations = this.pastSimulations.filter(sim => sim.id !== this.selectedSimulation.id);
+                this.showDeleted = true; // Automatically show deleted simulations
+                this.selectedSimulation = null; // Clear selection
             }
         },
         unselectSimulation() {
-            this.selectedSimulation = null; // Reset selected simulation
+            this.selectedSimulation = null;
         },
         useSimulation() {
-            alert(`Using ${this.selectedSimulation.batteryName}`);
+            // Logic to use the selected simulation
         },
         formatDuration(duration) {
-            const hours = Math.floor(duration / 3600);
-            const minutes = Math.floor((duration % 3600) / 60);
-            const seconds = duration % 60;
+            const seconds = Math.floor((duration / 1000) % 60);
+            const minutes = Math.floor((duration / (1000 * 60)) % 60);
+            const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
             return `${hours}h ${minutes}m ${seconds}s`;
         },
-        showDeletedSimulations() {
-            this.showDeleted = !this.showDeleted; // Toggle deleted simulations display
-        },
         retrieveSimulation(deleted) {
-            this.pastSimulations.push(deleted); // Retrieve the deleted simulation
-            this.deletedSimulations = this.deletedSimulations.filter(sim => sim.id !== deleted.id);
+            this.pastSimulations.push(deleted);
+            this.deletedSimulations = this.deletedSimulations.filter(d => d.id !== deleted.id);
+            // Ensure deleted simulations view is updated
+            if (this.deletedSimulations.length === 0) {
+                this.showDeleted = false; // Hide if no deleted simulations
+            }
         },
         permanentlyDeleteSimulation(deleted) {
-            this.deletedSimulations = this.deletedSimulations.filter(sim => sim.id !== deleted.id); // Permanently delete
+            this.deletedSimulations = this.deletedSimulations.filter(d => d.id !== deleted.id);
+            // Ensure deleted simulations view is updated
+            if (this.deletedSimulations.length === 0) {
+                this.showDeleted = false; // Hide if no deleted simulations
+            }
         },
     },
 };
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+/* Add your styles here */
 </style>

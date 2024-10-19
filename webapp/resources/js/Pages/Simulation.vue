@@ -12,7 +12,7 @@
 
         <div class="relative isolate px-6 pt-4 lg:px-8"> <!-- Reduced pt-10 to pt-4 -->
             <div class="max-w-2xl sm:py-4 lg:py-4"> <!-- Reduced py values to py-4 -->
-                <div class="text-end">
+                <div class="text-end ">
                     <p class="mt-2 text-lg text-gray-800"> <!-- Reduced mt-6 to mt-2 -->
                         <span class="inline-block p-4 bg-blue-500 text-white rounded-lg shadow-lg">
                             This is the simulation page where you begin testing your system.
